@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>绑定html class</title>
+</head>
+
+<body>
+    <div id="example">
+        <div :class="{ active: isActive }">class对象</div>
+        <div class="static" :class="{ active: isActive, 'text-danger': hasError }">和普通class共存
+        </div>
+        <div :class="classObject">绑定独立对象</div>
+        <div :class="classObject1">绑定计算属性对象</div>
+        <div :class="[activeClass, errorClass]">数组语法</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        var vm = new Vue({
+            el: '#example',
+            data: {
+                isActive: true,
+                hasError: false,
+                classObject: {
+                    active: true,
+                    'text-danger': false
+                },
+ activeClass: 'active', errorClass: 'text-danger'
+            },
+            computed: {
+                classObject1: function () {
+                    return {
+                        active: this.isActive && !this.error,
+                        'text-danger': this.error && this.error.type === 'fatal'
+                    }
+                },
+                // classObject: function () {
+                //     return {
+                //         active: false,
+                //         'text-danger':true
+                //     }
+                // }
+            }
+        })
+    </script>
+</body>
+
+</html>
