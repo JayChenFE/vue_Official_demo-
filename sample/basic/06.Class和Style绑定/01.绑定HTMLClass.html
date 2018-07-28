@@ -14,6 +14,8 @@
         <div :class="classObject">绑定独立对象</div>
         <div :class="classObject1">绑定计算属性对象</div>
         <div :class="[activeClass, errorClass]">数组语法</div>
+        <div :class="[isActive ? activeClass : '', errorClass]">数组语法三元表达式</div>
+        <div :class="[{ active: isActive }, errorClass]">数组语法对象语法</div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script>

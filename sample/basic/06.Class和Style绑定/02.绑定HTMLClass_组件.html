@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>绑定html class 组件</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-component class="baz boo"></my-component>
+        <my-component :class="{ active: isActive }"></my-component>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        Vue.component('my-component', {
+            template: '<p class="foo bar">Hi</p>'
+        })
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                isActive: true
+            }
+        })
+    </script>
+</body>
+
+</html>
