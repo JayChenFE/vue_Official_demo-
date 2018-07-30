@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>v-for2</title>
+</head>
+
+<body>
+    <fieldset id="example-1">
+        <legend>一段取值范围的 v-for</legend>
+        <div>
+            <span v-for="n in 10">{{ n }} </span>
+        </div>
+    </fieldset>
+
+    <fieldset id="example-2">
+        <legend>v-for on a &lt;template&gt;</legend>
+        <ul>
+            <template v-for="(item,index) in items">
+                <li>{{ item.message }}</li>
+                <li class="divider" role="presentation">{{index+1}}</li>
+            </template>
+        </ul>
+    </fieldset>
+
+    <fieldset id="example-3">
+        <legend>v-for with v-if</legend>
+        <p>当它们处于同一节点，v-for 的优先级比 v-if 更高，这意味着 v-if 将分别重复运行于每个 v-for 循环中。 当你想为仅有的一些项渲染节点时，这种优先级的机制会十分有用
+        </p>
+        <li v-for="todo in todos" v-if="!todo.isComplete">
+            {{ todo.message }}
+        </li>
+    </fieldset>
+
+    <fieldset id="example-4">
+        <legend>有条件地跳过循环的执行</legend>
+        <ul v-if="todos.length">
+            <li v-for="todo in todos">
+                {{ todo }}
+            </li>
+        </ul>
+        <p v-else>No todos left!</p>
+    </fieldset>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        var example1 = new Vue({
+            el: '#example-1',
+
+        })
+        var example2 = new Vue({
+            el: '#example-2',
+            data: {
+                items: [{
+                    message: 'Foo'
+                }, {
+                    message: 'Bar'
+                }]
+            }
+        })
+        var example3 = new Vue({
+            el: '#example-3',
+            data: {
+                todos: [{
+                        message: 'Foo',
+                        isComplete: undefined
+                    }, {
+                        message: 'Bar',
+                        isComplete: true
+                    },
+                    {
+                        message: 'this is',
+                        isComplete: false
+                    }
+                ]
+            }
+        })
+        var example4 = new Vue({
+            el: '#example-4',
+            data: {
+                todos: []
+            }
+        })
+    </script>
+</body>
+
+</html>
