@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>值绑定</title>
+</head>
+
+<body>
+    <fieldset id="example-1">
+        <legend>复选框</legend>
+        <input type="checkbox" v-model="toggle" true-value="yes" false-value="no">
+        <label for="checkbox">{{ toggle }}</label>
+        <p>这里的 true-value 和 false-value 特性并不会影响输入控件的 value 特性，因为浏览器在提交表单时并不会包含未被选中的复选框。 如果要确保表单中这两个值中的一个能够被提交，(比如“yes”或“no”)，请换用单选按钮。
+        </p>
+    </fieldset>
+    <br/>
+
+    <fieldset id="example-2">
+        <legend>单选按钮</legend>
+        <input type="radio" v-model="pick" v-bind:value="a">
+        <p>pick: {{ pick }}</p>
+        <p>a: {{a}}</p>
+    </fieldset>
+
+    <fieldset id="example-3">
+        <legend>选择框的选项</legend>
+        <select v-model="selected">
+            <!-- 内联对象字面量 -->
+            <option :value="{ number: 123 }">123</option>
+        </select>
+        <p>typeof example3.selected: {{typeof selected}}
+        </p>
+        <p>example3.selected.number: {{selected.number}}</p>
+    </fieldset>
+    <br/>
+    <fieldset>
+        <legend>修饰符</legend>
+        <xmp>
+            .lazy 在默认情况下，v-model 在每次 input 事件触发后将输入框的值与数据进行同步 (除了上述输入法组合文字时)。你可以添加 lazy 修饰符，从而转变为使用 change 事件进行同步：
+            <!-- 在“change”时而非“input”时更新 -->
+            <input v-model.lazy="msg"> .number 如果想自动将用户的输入值转为数值类型，可以给 v-model 添加 number 修饰符：
+            <input v-model.number="age" type="number"> 这通常很有用，因为即使在 type="number" 时，HTML 输入元素的值也总会返回字符串。 .trim 如果要自动过滤用户输入的首尾空白字符，可以给 v-model 添加 trim 修饰符：
+            <input v-model.trim="msg">
+        </xmp>
+    </fieldset>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        var example1 = new Vue({
+            el: '#example-1',
+            data: {
+                toggle: ''
+            }
+        })
+        var example2 = new Vue({
+            el: '#example-2',
+            data: {
+                pick: '',
+                a: 'val of a'
+            }
+        })
+        var example3 = new Vue({
+            el: '#example-3',
+            data: {
+                selected: ''
+            }
+        })
+    </script>
+</body>
+
+</html>
