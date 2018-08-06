@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>通过事件向父级组件发送消息</title>
+</head>
+
+<body>
+    <fieldset id="example">
+        <legend>放大字号</legend>
+        <div :style="{ fontSize: postFontSize + 'em' }">
+            <blog-post v-for="post in posts" :key="post.id" :post="post" @enlarge-text="postFontSize += 0.1"></blog-post>
+        </div>
+    </fieldset>
+    <br/>
+    <fieldset id="example2">
+        <legend>放大字号-使用事件抛出一个值</legend>
+        <div :style="{ fontSize: postFontSize + 'em' }">
+            <blog-post1 v-for="post in posts" :key="post.id" :post="post" @enlarge-text="postFontSize += $event"></blog-post1>
+        </div>
+    </fieldset>
+    <fieldset id="example3">
+        <legend>放大字号-使用事件抛出一个值-函数</legend>
+        <div :style="{ fontSize: postFontSize + 'em' }">
+            <blog-post2 v-for="post in posts" :key="post.id" :post="post" @enlarge-text="onEnlargeText"></blog-post2>
+        </div>
+    </fieldset>
+    <br/>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        Vue.component('blog-post', {
+            props: ['post'],
+            template: `
+                    <div>
+                        <h3>{{ post.title }}</h3>
+                        <button @click="$emit('enlarge-text')">
+                            Enlarge text
+                        </button>
+                    </div>
+                    `
+        })
+        Vue.component('blog-post1', {
+            props: ['post'],
+            template: `
+                    <div>
+                        <h3>{{ post.title }}</h3>
+                        <button @click="$emit('enlarge-text',0.4)">
+                            Enlarge text
+                        </button>
+                    </div>
+                     `
+        })
+        Vue.component('blog-post2', {
+            props: ['post'],
+            template: `
+            <div>
+                <h3>{{ post.title }}</h3>
+                <button @click="$emit('enlarge-text',0.4)">
+                    Enlarge text
+                </button>
+            </div>`
+        })
+        new Vue({
+            el: '#example',
+            data: {
+                posts: [{
+                    id: 1,
+                    title: 'My journey with Vue1'
+                }, {
+                    id: 2,
+                    title: 'Blogging with Vue1 '
+                }, {
+                    id: 3,
+                    title: ' Why Vue is so fun1 '
+                }],
+                postFontSize: 1
+            }
+        })
+        new Vue({
+            el: '#example2',
+            data: {
+                posts: [{
+                        id: 1,
+                        title: 'My journey with '
+                    }, {
+                        id: 2,
+                        title: 'Blogging with '
+                    },
+                    {
+                        id: 3,
+                        title: ' Why Vue is so  '
+                    }
+                ],
+                postFontSize: 0.5
+            }
+        })
+
+        new Vue({
+            el: '#example3',
+            data: {
+                posts: [{
+                    id: 1,
+                    title: 'My journey with '
+                }, {
+                    id: 2,
+                    title: 'Blogging with '
+                }, {
+                    id: 3,
+                    title: ' Why Vue is so '
+                }],
+                postFontSize: 0.3
+            },
+            methods: {
+                onEnlargeText: function (enlargeAmount) {
+                    this.postFontSize += enlargeAmount
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
